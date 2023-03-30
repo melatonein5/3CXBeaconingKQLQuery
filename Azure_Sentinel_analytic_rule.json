@@ -1,0 +1,55 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "workspace": {
+            "type": "String"
+        }
+    },
+    "resources": [
+        {
+            "id": "[concat(resourceId('Microsoft.OperationalInsights/workspaces/providers', parameters('workspace'), 'Microsoft.SecurityInsights'),'/alertRules/1e3589c8-7c9b-48aa-8f9e-c52e6fab6aa8')]",
+            "name": "[concat(parameters('workspace'),'/Microsoft.SecurityInsights/1e3589c8-7c9b-48aa-8f9e-c52e6fab6aa8')]",
+            "type": "Microsoft.OperationalInsights/workspaces/providers/alertRules",
+            "kind": "Scheduled",
+            "apiVersion": "2022-09-01-preview",
+            "properties": {
+                "displayName": "Detect 3CX Malware Domains",
+                "description": "Detects the precense of domains being used by infected 3CX installs.",
+                "severity": "High",
+                "enabled": true,
+                "query": "let IOC = dynamic([\"akamaicontainer.com\",\"akamaitechcloudservices.com\",\"azuredeploystore.com\",\"azureonlinecloud.com\",\"azureonlinestorage.com\",\"dunamistrd.com\",\"glcloudservice.com\",\"journalide.org\",\"msedgepackageinfo.com\",\"msstorageazure.com\",\"msstorageboxes.com\",\"officeaddons.com\",\"officestoragebox.com\",\"pbxcloudeservices.com\",\"pbxphonenetwork.com\",\"pbxsources.com\",\"qwepoi123098.com\",\"sbmsa.wiki\",\"sourceslabs.com\", \"visualstudiofactory.com\",\"zacharryblogs.com\"]);\r\nDnsEvents\r\n| where Name in~ (IOC)",
+                "queryFrequency": "PT15M",
+                "queryPeriod": "PT15M",
+                "triggerOperator": "GreaterThan",
+                "triggerThreshold": 0,
+                "suppressionDuration": "PT5H",
+                "suppressionEnabled": false,
+                "startTimeUtc": null,
+                "tactics": [],
+                "techniques": [],
+                "alertRuleTemplateName": null,
+                "incidentConfiguration": {
+                    "createIncident": true,
+                    "groupingConfiguration": {
+                        "enabled": true,
+                        "reopenClosedIncident": false,
+                        "lookbackDuration": "PT5H",
+                        "matchingMethod": "AllEntities",
+                        "groupByEntities": [],
+                        "groupByAlertDetails": [],
+                        "groupByCustomDetails": []
+                    }
+                },
+                "eventGroupingSettings": {
+                    "aggregationKind": "SingleAlert"
+                },
+                "alertDetailsOverride": null,
+                "customDetails": null,
+                "entityMappings": null,
+                "sentinelEntitiesMappings": null,
+                "templateVersion": null
+            }
+        }
+    ]
+}
