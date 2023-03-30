@@ -1,4 +1,4 @@
-# 3CXBeacoingKQLQuery
+# 3CXBeaconingKQLQuery
 KQL to detect beaconing to IOCs from the 3CX compromise 
 
 ## Sentinel DNSEvents query
